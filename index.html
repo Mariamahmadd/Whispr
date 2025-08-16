@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Whispr Chat</title>
+  <link rel="stylesheet" href="sources/style.css" />
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="whispr-logo">
+        W
+      </div>
+      <button class="new-chat-btn" onclick="startNewChat()">
+        <span>+</span> New Chat
+      </button>
+    </div>
+    <div class="chat-history" id="chatHistory"></div>
+    <button class="clear-history-btn" onclick="clearChatHistory()">
+      🗑️ Clear History
+    </button>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="chat-header">
+      <button class="sidebar-toggle" onclick="toggleSidebar()">
+        <div class="hamburger">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </button>
+      <div class="chat-title-header" id="chatTitleHeader">Whispr</div>
+      <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">
+        <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"></circle>
+          <line x1="12" y1="1" x2="12" y2="3"></line>
+          <line x1="12" y1="21" x2="12" y2="23"></line>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+          <line x1="1" y1="12" x2="3" y2="12"></line>
+          <line x1="21" y1="12" x2="23" y2="12"></line>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+        <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Message Container -->
+    <div class="messages-container" id="messagesContainer">
+      <div class="welcome-screen" id="welcomeScreen">
+        <div class="welcome-content">
+          <h1>Hello, I'm Whispr</h1>
+          <p>I'm an AI assistant here to help you. How can I assist you today?</p>
+          <div class="suggestions">
+            <div class="suggestion-card" onclick="sendSuggestion('Help me write a professional email')">
+              <h3>✍️ Writing Help</h3>
+              <p>Help me write a professional email</p>
+            </div>
+            <div class="suggestion-card" onclick="sendSuggestion('Explain quantum computing in simple terms')">
+              <h3>🧠 Learning</h3>
+              <p>Explain quantum computing in simple terms</p>
+            </div>
+            <div class="suggestion-card" onclick="sendSuggestion('Help me plan a healthy meal for the week')">
+              <h3>🍽️ Planning</h3>
+              <p>Help me plan a healthy meal for the week</p>
+            </div>
+            <div class="suggestion-card" onclick="sendSuggestion('Write a Python script to analyze data')">
+              <h3>💻 Coding</h3>
+              <p>Write a Python script to analyze data</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input -->
+    <div class="input-container">
+      <div class="input-wrapper">
+        <textarea 
+          class="message-input" 
+          id="messageInput" 
+          placeholder="Message Whispr..."
+          rows="1"
+        ></textarea>
+        <button class="send-button" id="sendButton">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M22 2L11 13"></path>
+            <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar overlay for mobile -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+
+  <!-- Scripts -->
+  <script>
+// Theme toggle functionality
+function toggleTheme() {
+    const body = document.body;
+    const currentTheme = body.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    
+    // Set the new theme
+    if (newTheme === 'light') {
+        body.setAttribute('data-theme', 'light');
+    } else {
+        body.removeAttribute('data-theme');
+    }
+    
+    // Save theme preference
+    localStorage.setItem('whispr-theme', newTheme);
+}
+
+// Initialize theme on page load
+document.addEventListener('DOMContentLoaded', function() {
+    const savedTheme = localStorage.getItem('whispr-theme') || 'dark';
+    if (savedTheme === 'light') {
+        document.body.setAttribute('data-theme', 'light');
+    }
+});
+  </script>
+  <script src="sources/script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</body>
+</html>
